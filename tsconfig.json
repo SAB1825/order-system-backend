@@ -6,11 +6,11 @@
     "files": [],
     "references": [
         { "path": "./shared" },
-        { "path": "./services/order-service" },
-        { "path": "./services/gateway-service" },
-        { "path": "./services/auth-service" },
-        { "path": "./services/payment-service" },
-        { "path": "./services/delivery-service" },
+        // { "path": "./services/order-service" },
+        // { "path": "./services/gateway-service" },
+        // { "path": "./services/auth-service" },
+        // { "path": "./services/payment-service" },
+        // { "path": "./services/delivery-service" },
         
     ]
 }
