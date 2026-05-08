@@ -1,10 +1,15 @@
 import { createServer } from "http";
 import { createApp } from "./app";
-import { env } from "./config/env";
+import { env } from "./config/env.config";
 import { logger } from "./utils/logger";
+import { closeDb, connectToDB } from "./config/db.config";
+import { initModels } from "./ models";
 
 export const startServer = async () => {
   try {
+    await connectToDB();
+    await initModels();
+
     const app = createApp();
     const server = createServer(app);
     const PORT = env.AUTH_SERVICE_PORT;
@@ -15,7 +20,7 @@ export const startServer = async () => {
     const shutdown = () => {
       logger.info("Auth-Service is shutting down");
 
-      Promise.all([])
+      Promise.all([closeDb()])
         .catch((error: unknown) => {
           logger.error({ error }, "Error during shutdown Auth-Service");
         })
