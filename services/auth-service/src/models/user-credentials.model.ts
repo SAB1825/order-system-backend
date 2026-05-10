@@ -5,14 +5,15 @@ export interface UserCredentialEntity {
   id: string;
   name: string;
   email: string;
-  passwordHash: string;
+  password_hash: string;
+  email_verified: boolean;
   createdAt: Date;
   updatedAt: Date;
 }
 
 export type UserCredentialCreationEntity = Optional<
   UserCredentialEntity,
-  "id" | "createdAt" | "updatedAt"
+  "id" | "createdAt" | "updatedAt" | "email_verified"
 >;
 
 export class userCredential
@@ -22,7 +23,8 @@ export class userCredential
   declare id: string;
   declare name: string;
   declare email: string;
-  declare passwordHash: string;
+  declare password_hash: string;
+  declare email_verified: boolean;
   declare createdAt: Date;
   declare updatedAt: Date;
 }
@@ -42,7 +44,11 @@ userCredential.init(
         isEmail: true,
       },
     },
-    passwordHash: {
+    email_verified: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
+    },
+    password_hash: {
       type: DataTypes.STRING,
       allowNull: false,
     },

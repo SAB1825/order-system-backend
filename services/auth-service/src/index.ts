@@ -3,12 +3,14 @@ import { createApp } from "./app";
 import { env } from "./config/env.config";
 import { logger } from "./utils/logger";
 import { closeDb, connectToDB } from "./config/db.config";
-import { initModels } from "./ models";
+import { initModels } from "./models";
+import { closePublisher, initPublisher } from "./messaging/event-publishing";
 
 export const startServer = async () => {
   try {
     await connectToDB();
     await initModels();
+    await initPublisher();
 
     const app = createApp();
     const server = createServer(app);
@@ -20,7 +22,7 @@ export const startServer = async () => {
     const shutdown = () => {
       logger.info("Auth-Service is shutting down");
 
-      Promise.all([closeDb()])
+      Promise.all([closeDb(), closePublisher()])
         .catch((error: unknown) => {
           logger.error({ error }, "Error during shutdown Auth-Service");
         })
