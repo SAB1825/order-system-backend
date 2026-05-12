@@ -5,12 +5,14 @@ import { logger } from "./utils/logger";
 import { closeDb, connectToDB } from "./config/db.config";
 import { initModels } from "./models";
 import { closePublisher, initPublisher } from "./messaging/event-publishing";
+import { connectRedis } from "./config/redis.config";
 
 export const startServer = async () => {
   try {
     await connectToDB();
     await initModels();
     await initPublisher();
+    await connectRedis();
 
     const app = createApp();
     const server = createServer(app);

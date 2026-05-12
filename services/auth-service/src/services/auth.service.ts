@@ -3,6 +3,7 @@ import { userCredential } from "@/models";
 import { AuthResponse, registerInput } from "@/types/auth";
 import { hashPassword } from "@/utils/bcrypt";
 import { logger } from "@/utils/logger";
+import { generateOtp, storeOTP } from "@/utils/otp";
 import { HttpError } from "@backend/shared";
 
 export const register = async (input: registerInput): Promise<AuthResponse> => {
@@ -31,10 +32,14 @@ export const register = async (input: registerInput): Promise<AuthResponse> => {
     email_verified: userRecord.email_verified,
   };
 
+  const otp = generateOtp();
+  await storeOTP(userRecord.id, otp);
+
   publishUserRegister({
     name: userRecord.name,
     email: userRecord.email,
     createdAt: userRecord.createdAt.toISOString(),
+    otp: otp,
     id: userRecord.id,
   });
 

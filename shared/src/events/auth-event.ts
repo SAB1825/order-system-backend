@@ -12,6 +12,7 @@ export namespace AuthEvents {
       id: string;
       email: string;
       name: string;
+      otp: string;
       createdAt: string;
     }
 
