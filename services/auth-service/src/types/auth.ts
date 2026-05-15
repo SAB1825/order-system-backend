@@ -4,6 +4,11 @@ export type registerInput = {
   password: string;
 };
 
+export type loginInput = {
+  email: string;
+  password: string;
+};
+
 export type UserType = {
   id: string;
   name: string;

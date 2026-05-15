@@ -10,6 +10,8 @@ const EnvSchema = z.object({
   AUTH_DB_URL: z.url(),
   RABBITMQ_URL: z.url(),
   REDIS_URL: z.url(),
+  ACCESS_TOKEN_SECRET: z.string(),
+  REFRESH_TOKEN_SECRET: z.string(),
 });
 
 type EnvType = z.infer<typeof EnvSchema>;
